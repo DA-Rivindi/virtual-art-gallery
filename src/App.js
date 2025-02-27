@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';
+import './App.css'; 
+import Gallery from './components/Gallery';
+import Navigation from './components/Navigation';
+import ArtPiece from './components/ArtPiece';
 
-function App() {
+const App = () => {
+  const [currentArtIndex, setCurrentArtIndex] = useState(0);
+
+  const artCollection = [
+    {
+      image: 'path/to/image1.jpg',
+      title: 'Art Piece 1',
+      artist: 'Artist 1',
+      description: 'Description of Art Piece 1',
+    },
+    {
+      image: 'path/to/image2.jpg',
+      title: 'Art Piece 2',
+      artist: 'Artist 2',
+      description: 'Description of Art Piece 2',
+    },
+    // Add more art pieces here
+  ];
+
+  const handleNavigate = (direction) => {
+    if (direction === 'next') {
+      setCurrentArtIndex((prevIndex) => (prevIndex + 1) % artCollection.length);
+    } else {
+      setCurrentArtIndex((prevIndex) => (prevIndex - 1 + artCollection.length) % artCollection.length);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Gallery />
+      <Navigation onNavigate={handleNavigate} />
+      <ArtPiece art={artCollection[currentArtIndex]} />
     </div>
   );
-}
+};
 
 export default App;
