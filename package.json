@@ -36,4 +36,10 @@
       "last 1 safari version"
     ]
   }
+  "homepage": "https://DA-Rivindi.github.io/virtual-art-gallery",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+}
+
 }
